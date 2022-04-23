@@ -22,6 +22,7 @@ import socket
 import numpy as np
 
 import pandas as pd
+from .models import *
 
 # Gradient Boosting Classifier Model
 from sklearn.ensemble import GradientBoostingClassifier
@@ -504,14 +505,48 @@ def detect(request):
         print('y pro phising', y_pro_non_phishing)
         pred = "It is {0:.2f} % safe to go ".format(y_pro_non_phishing*100)
         print(pred)
+        print('x0',meta_data[0])
         if 1>=y_pro_non_phishing and y_pro_non_phishing>=0.5:
             json_resp = {
                 'safe': 'true',
-                'score': y_pro_non_phishing*100
+                'score': y_pro_non_phishing*100,
             }
+            website_object = Website.objects.create(link=url,UsingIP=meta_data[0],
+            LongURL=meta_data[1],ShortURL=meta_data[2],
+            Symbol=meta_data[3],Redirecting=meta_data[4],
+            PrefixSuffix=meta_data[5],SubDomains=meta_data[6],
+            HTTPS=meta_data[7],DomainRegLen=meta_data[8],
+            Favicon=meta_data[9],NonStdPort=meta_data[10],
+            HTTPSDomainURL=meta_data[11],RequestURL=meta_data[12],
+            AnchorURL=meta_data[13],LinksInScriptTags=meta_data[14],
+            ServerFormHandler=meta_data[15],InfoEmail=meta_data[16],
+            AbnormalURL=meta_data[17],WebsiteForwarding=meta_data[18],
+            StatusBarCust=meta_data[19],DisableRightClick=meta_data[20],
+            UsingPopupWindow=meta_data[21],IframeRedirection=meta_data[22],
+            AgeofDomain=meta_data[23],DNSRecording=meta_data[24],
+            WebsiteTraffic=meta_data[25],PageRank=meta_data[26],
+            GoogleIndex=meta_data[27],LinksPointingToPage=meta_data[28],
+            StatsReport=meta_data[29],pred_class=True,score=y_pro_non_phishing)
         else:
             json_resp = {
                 'safe': 'false',
-                'score': y_pro_non_phishing*100
-            }         
+                'score': y_pro_non_phishing*100,
+            }
+            website_object = Website.objects.create(link=url,UsingIP=meta_data[0],
+            LongURL=meta_data[1],ShortURL=meta_data[2],
+            Symbol=meta_data[3],Redirecting=meta_data[4],
+            PrefixSuffix=meta_data[5],SubDomains=meta_data[6],
+            HTTPS=meta_data[7],DomainRegLen=meta_data[8],
+            Favicon=meta_data[9],NonStdPort=meta_data[10],
+            HTTPSDomainURL=meta_data[11],RequestURL=meta_data[12],
+            AnchorURL=meta_data[13],LinksInScriptTags=meta_data[14],
+            ServerFormHandler=meta_data[15],InfoEmail=meta_data[16],
+            AbnormalURL=meta_data[17],WebsiteForwarding=meta_data[18],
+            StatusBarCust=meta_data[19],DisableRightClick=meta_data[20],
+            UsingPopupWindow=meta_data[21],IframeRedirection=meta_data[22],
+            AgeofDomain=meta_data[23],DNSRecording=meta_data[24],
+            WebsiteTraffic=meta_data[25],PageRank=meta_data[26],
+            GoogleIndex=meta_data[27],LinksPointingToPage=meta_data[28],
+            StatsReport=meta_data[29],pred_class=False,score=y_pro_non_phishing)
+        website_object.save()
         return JsonResponse(json_resp)

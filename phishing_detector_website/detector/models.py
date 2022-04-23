@@ -1,54 +1,41 @@
-from os import link
-from pyexpat import model
-from statistics import mode
-from xmlrpc.client import Boolean
+from django.contrib import admin
 from django.db import models
-
-# Create your models here.
-from django.db import models
-
 
 
 class Website(models.Model):
-
     link = models.TextField()
+    UsingIP             = models.IntegerField() 
+    LongURL             = models.IntegerField() 
+    ShortURL            = models.IntegerField() 
+    Symbol             = models.IntegerField() 
+    Redirecting       = models.IntegerField() 
+    PrefixSuffix       = models.IntegerField() 
+    SubDomains          = models.IntegerField() 
+    HTTPS               = models.IntegerField() 
+    DomainRegLen        = models.IntegerField() 
+    Favicon             = models.IntegerField() 
+    NonStdPort          = models.IntegerField() 
+    HTTPSDomainURL      = models.IntegerField() 
+    RequestURL          = models.IntegerField() 
+    AnchorURL           = models.IntegerField() 
+    LinksInScriptTags   = models.IntegerField() 
+    ServerFormHandler   = models.IntegerField() 
+    InfoEmail           = models.IntegerField() 
+    AbnormalURL         = models.IntegerField() 
+    WebsiteForwarding   = models.IntegerField() 
+    StatusBarCust       = models.IntegerField() 
+    DisableRightClick   = models.IntegerField() 
+    UsingPopupWindow    = models.IntegerField() 
+    IframeRedirection   = models.IntegerField() 
+    AgeofDomain         = models.IntegerField() 
+    DNSRecording        = models.IntegerField() 
+    WebsiteTraffic      = models.IntegerField() 
+    PageRank            = models.IntegerField() 
+    GoogleIndex         = models.IntegerField() 
+    LinksPointingToPage = models.IntegerField() 
+    StatsReport         = models.IntegerField() 
+    pred_class          = models.IntegerField()
+    score = models.FloatField(default=None)
 
-    UsingIP = models.BooleanField()
-
-    LongURL = models.BooleanField()
-
-    Symbol = models.BooleanField()
-
-    Redirecting = models.BooleanField()
-
-    PrefixSuffix = models.BooleanField()
-
-    SubDomains = models.IntegerField()
-
-    HTTPS = models.IntegerField()
-
-    DomainRegLen = models.BooleanField()
-
-    Favicon = models.BooleanField()
-
-    NonStdPort = models.BooleanField()
-
-    HTTPSDomainURL = models.BooleanField()
-
-    RequestURL = models.BooleanField()
-
-    AnchorURL = models.IntegerField()
-
-    LinksInScriptTags = models.IntegerField()
-
-    ServerFormHandler = models.BooleanField()
-
-    InfoEmail = models.BooleanField()
-
-    AbnormalURL = models.BooleanField()
-
-    WebsiteForwarding = models.BooleanField()
-
-    DNSRecording = models.BooleanField()
-
-    PageRank = models.BooleanField()
+class WebsiteAdmin(admin.ModelAdmin):
+    list_display = ('link', 'HTTPS', 'UsingIP','AgeofDomain','GoogleIndex','pred_class','score')
